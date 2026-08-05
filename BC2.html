@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ශ්‍රී ලංකා භික්ෂු විශ්ව විද්‍යාලය - බහුවරණ ප්‍රශ්න කවය දින 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #D4AF37;
+            --primary-dark: #B8941F;
+            --secondary: #8B0000;
+            --accent: #FF6B35;
+            --bg: #FFF8E7;
+            --card-bg: #FFFFFF;
+            --text: #2C1810;
+            --text-light: #6B5B4F;
+            --success: #28A745;
+            --danger: #DC3545;
+            --shadow: 0 10px 40px rgba(139, 0, 0, 0.15);
+            --shadow-hover: 0 15px 50px rgba(139, 0, 0, 0.25);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans Sinhala', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .bg-pattern {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 0, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+        .floating-ornament {
+            position: fixed; font-size: 3rem; opacity: 0.08;
+            animation: float 20s infinite ease-in-out;
+            z-index: -1; pointer-events: none;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+        .header {
+            background: linear-gradient(135deg, var(--secondary) 0%, #5C0000 100%);
+            color: white; padding: 1.5rem 2rem; text-align: center;
+            box-shadow: var(--shadow); position: relative; overflow: hidden;
+        }
+        .header::before {
+            content: ''; position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(212,175,55,0.2) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        .header-content { position: relative; z-index: 1; }
+        .header h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); letter-spacing: 1px; }
+        .header-sub { font-size: 1.1rem; opacity: 0.9; font-weight: 600; }
+        .header-icon { font-size: 3rem; margin-bottom: 0.5rem; display: block; color: var(--primary); }
+        .score-bar {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--secondary); padding: 1rem 2rem; display: flex;
+            justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100;
+        }
+        .score-item { text-align: center; background: rgba(255,255,255,0.25); padding: 0.5rem 1.5rem; border-radius: 50px; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3); }
+        .score-item .label { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .score-item .value { font-size: 1.8rem; font-weight: 900; color: var(--secondary); }
+        .online-indicator { display: flex; align-items: center; gap: 0.5rem; background: rgba(40, 167, 69, 0.2); padding: 0.5rem 1rem; border-radius: 50px; border: 2px solid var(--success); }
+        .online-dot { width: 10px; height: 10px; background: var(--success); border-radius: 50%; animation: blink 1.5s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+        .landing-page { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; animation: fadeInUp 0.8s ease; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .landing-card { background: var(--card-bg); padding: 3rem 2.5rem; border-radius: 24px; box-shadow: var(--shadow); max-width: 500px; width: 100%; border: 3px solid var(--primary); position: relative; overflow: hidden; }
+        .landing-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary)); }
+        .landing-icon { font-size: 4rem; color: var(--primary); margin-bottom: 1rem; }
+        .landing-card h2 { font-size: 1.8rem; color: var(--secondary); margin-bottom: 0.5rem; }
+        .landing-card p { color: var(--text-light); margin-bottom: 2rem; font-size: 1rem; }
+        .form-group { margin-bottom: 1.5rem; text-align: left; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 700; color: var(--secondary); font-size: 0.95rem; }
+        .form-group input { width: 100%; padding: 1rem 1.2rem; border: 2px solid #E0D5C7; border-radius: 12px; font-size: 1rem; font-family: inherit; transition: all 0.3s; background: var(--bg); }
+        .form-group input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2); }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem 2.5rem; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: var(--secondary); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); }
+        .btn-block { width: 100%; }
+        .rounds-nav { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .round-btn { padding: 0.8rem 1.5rem; border: 2px solid var(--primary); background: white; border-radius: 50px; font-family: inherit; font-weight: 700; cursor: pointer; transition: all 0.3s; color: var(--text); position: relative; overflow: hidden; }
+        .round-btn.active { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: var(--secondary); border-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
+        .round-btn.locked { opacity: 0.5; cursor: not-allowed; border-color: #ccc; color: #999; }
+        .round-btn:not(.locked):hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .round-status { position: absolute; top: -5px; right: -5px; width: 20px; height: 20px; border-radius: 50%; background: var(--success); color: white; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; }
+        .question-card { background: var(--card-bg); border-radius: 20px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); border-left: 5px solid var(--primary); transition: all 0.3s; animation: slideIn 0.5s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        .question-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+        .question-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px dashed #E0D5C7; }
+        .question-number { background: linear-gradient(135deg, var(--secondary) 0%, #5C0000 100%); color: white; width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem; flex-shrink: 0; }
+        .question-text { font-size: 1.15rem; font-weight: 700; color: var(--text); line-height: 1.6; }
+        .options { display: flex; flex-direction: column; gap: 0.8rem; }
+        .option { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; background: var(--bg); border: 2px solid transparent; border-radius: 12px; cursor: pointer; transition: all 0.3s; font-size: 1rem; }
+        .option:hover:not(.answered) { border-color: var(--primary); background: #FFF5D6; transform: translateX(5px); }
+        .option-letter { width: 36px; height: 36px; border-radius: 50%; background: white; border: 2px solid var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--secondary); flex-shrink: 0; transition: all 0.3s; }
+        .option.correct { background: #D4EDDA; border-color: var(--success); animation: correctPulse 0.6s ease; }
+        .option.correct .option-letter { background: var(--success); color: white; border-color: var(--success); }
+        .option.wrong { background: #F8D7DA; border-color: var(--danger); animation: shake 0.5s ease; }
+        .option.wrong .option-letter { background: var(--danger); color: white; border-color: var(--danger); }
+        .option.answered { cursor: default; opacity: 0.7; }
+        .option.answered:not(.correct):not(.wrong):hover { transform: none; border-color: transparent; }
+        @keyframes correctPulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+        .feedback { margin-top: 1rem; padding: 1rem; border-radius: 12px; font-weight: 700; text-align: center; display: none; animation: fadeIn 0.4s ease; }
+        .feedback.show { display: block; }
+        .feedback.success { background: #D4EDDA; color: #155724; border: 2px solid var(--success); }
+        .feedback.error { background: #F8D7DA; color: #721C24; border: 2px solid var(--danger); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .round-lock { background: linear-gradient(135deg, #FFF3CD 0%, #FFEAA7 100%); border: 2px solid var(--primary); border-radius: 20px; padding: 3rem 2rem; text-align: center; margin: 2rem 0; animation: fadeInUp 0.6s ease; }
+        .round-lock i { font-size: 3rem; color: var(--primary-dark); margin-bottom: 1rem; }
+        .round-lock h3 { color: var(--secondary); font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .round-lock p { color: var(--text-light); }
+        .completion-message { background: linear-gradient(135deg, #D4EDDA 0%, #C3E6CB 100%); border: 3px solid var(--success); border-radius: 24px; padding: 3rem 2rem; text-align: center; margin: 2rem 0; animation: fadeInUp 0.8s ease; }
+        .completion-message i { font-size: 4rem; color: var(--success); margin-bottom: 1rem; }
+        .completion-message h2 { color: #155724; font-size: 2rem; margin-bottom: 1rem; }
+        .completion-message .final-score { font-size: 3rem; font-weight: 900; color: var(--secondary); background: white; display: inline-block; padding: 0.5rem 2rem; border-radius: 50px; margin: 1rem 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .leaderboard-section { background: var(--card-bg); border-radius: 20px; padding: 2rem; margin-top: 2rem; box-shadow: var(--shadow); border: 2px solid var(--primary); }
+        .leaderboard-section h2 { text-align: center; color: var(--secondary); margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .leaderboard-section h2 i { color: var(--primary); margin-right: 0.5rem; }
+        .leaderboard-table { width: 100%; border-collapse: collapse; }
+        .leaderboard-table th { background: linear-gradient(135deg, var(--secondary) 0%, #5C0000 100%); color: white; padding: 1rem; text-align: left; font-weight: 700; }
+        .leaderboard-table th:first-child { border-radius: 12px 0 0 0; }
+        .leaderboard-table th:last-child { border-radius: 0 12px 0 0; }
+        .leaderboard-table td { padding: 1rem; border-bottom: 1px solid #E0D5C7; }
+        .leaderboard-table tr:hover { background: #FFF8E7; }
+        .rank { font-weight: 900; font-size: 1.2rem; color: var(--primary-dark); }
+        .rank-1 { color: #FFD700; text-shadow: 0 0 10px rgba(255,215,0,0.5); }
+        .rank-2 { color: #C0C0C0; }
+        .rank-3 { color: #CD7F32; }
+        .footer { background: linear-gradient(135deg, var(--secondary) 0%, #5C0000 100%); color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+        .footer a { color: var(--primary); text-decoration: none; font-weight: 700; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.5rem; background: rgba(255,255,255,0.1); border-radius: 50px; margin-top: 0.5rem; transition: all 0.3s; border: 2px solid var(--primary); }
+        .footer a:hover { background: var(--primary); color: var(--secondary); transform: translateY(-2px); }
+        .footer p { margin-bottom: 0.5rem; opacity: 0.9; }
+        .hidden { display: none !important; }
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.5rem; }
+            .score-bar { flex-direction: column; gap: 0.5rem; padding: 0.8rem; }
+            .score-item { padding: 0.4rem 1rem; }
+            .score-item .value { font-size: 1.4rem; }
+            .landing-card { padding: 2rem 1.5rem; }
+            .question-card { padding: 1.5rem; }
+            .rounds-nav { gap: 0.5rem; }
+            .round-btn { padding: 0.6rem 1rem; font-size: 0.9rem; }
+        }
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <div class="floating-ornament" style="top:10%;left:5%;">☸️</div>
+    <div class="floating-ornament" style="top:30%;right:8%;animation-delay:5s;">🪷</div>
+    <div class="floating-ornament" style="top:60%;left:3%;animation-delay:10s;">📿</div>
+    <div class="floating-ornament" style="top:80%;right:5%;animation-delay:15s;">🕉️</div>
+    <canvas id="confetti-canvas"></canvas>
+    <header class="header">
+        <div class="header-content">
+            <i class="fas fa-dharmachakra header-icon"></i>
+            <h1>ශ්‍රී ලංකා භික්ෂු විශ්ව විද්‍යාලය</h1>
+            <p class="header-sub">බහුවරණ ප්‍රශ්න කවය දින 2</p>
+        </div>
+    </header>
+    <div class="score-bar" id="scoreBar" style="display:none;">
+        <div class="score-item"><div class="label">මුළු ලකුණු</div><div class="value" id="totalScore">0 / 100</div></div>
+        <div class="score-item"><div class="label">නිවැරදි පිළිතුරු</div><div class="value" id="correctCount">0</div></div>
+        <div class="score-item"><div class="label">වටය</div><div class="value" id="currentRoundDisplay">1</div></div>
+        <div class="online-indicator"><div class="online-dot"></div><span id="onlineCount">Online: 12</span></div>
+    </div>
+    <div class="container" id="landingPage">
+        <div class="landing-page">
+            <div class="landing-card">
+                <i class="fas fa-user-graduate landing-icon"></i>
+                <h2>සාදරයෙන් පිළිගනිමු!</h2>
+                <p>බහුවරණ ප්‍රශ්න කවයට සහභාගී වීමට ඔබගේ තොරතුරු ඇතුළත් කරන්න.</p>
+                <div class="form-group">
+                    <label for="userName"><i class="fas fa-user"></i> ඔබගේ සම්පූර්ණ නම</label>
+                    <input type="text" id="userName" placeholder="සත්‍ය නම ඇතුළත් කරන්න" required>
+                </div>
+                <div class="form-group">
+                    <label for="userPhone"><i class="fas fa-phone"></i> දුරකථන අංකය</label>
+                    <input type="tel" id="userPhone" placeholder="07X XXX XXXX" required>
+                </div>
+                <button class="btn btn-primary btn-block" onclick="startQuiz()"><i class="fas fa-play"></i> ප්‍රශ්න වටය ආරම්භ කරන්න</button>
+            </div>
+        </div>
+    </div>
+    <div class="container hidden" id="quizContainer">
+        <div class="rounds-nav" id="roundsNav"></div>
+        <div id="questionsArea"></div>
+        <div class="leaderboard-section">
+            <h2><i class="fas fa-trophy"></i> නාම ලේඛනය</h2>
+            <div style="overflow-x:auto;">
+                <table class="leaderboard-table">
+                    <thead><tr><th>ස්ථානය</th><th>නම</th><th>දුරකථන අංකය</th><th>ලකුණු</th><th>වටය</th></tr></thead>
+                    <tbody id="leaderboardBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>ඕනෑම ප්‍රශ්නයක් ඇත්නම් සම්බන්ධ වන්න</p>
+        <a href="https://wa.me/94725197825" target="_blank"><i class="fab fa-whatsapp"></i> Whatsapp contact with Dilshan Nawarathna - 0725197825</a>
+    </footer>
+
+<script>
+const questionsData = {
+    1: [
+        { q: "ප්‍රථම සංගායනාව පැවැත්වුණේ බුද්ධ පරිනිර්වාණයෙන් කොපමණ කාලයකට පසුවද?", options: ["මාසයකට පසු", "මාස දෙකකට පසු", "තෙමසකට පසු", "මාස හයකට පසු", "වසරකට පසු"], correct: 2 },
+        { q: "ප්‍රථම සංගායනාවේ ප්‍රධානත්වය දැරුවේ කවුද?", options: ["මහා කාශ්‍යප මහරහතන් වහන්සේ", "ආනන්ද හිමි", "උපාලි හිමි", "අනුරුද්ධ හිමි", "සැරියුත් හිමි"], correct: 0 },
+        { q: "ප්‍රථම සංගායනාව පැවැත්වූ ස්ථානය කුමක්ද?", options: ["කුසිනාරාව", "සැවැත්නුවර ජේතවනාරාමය", "වෙළුවනාරාමය", "රජගහ නුවර සප්තපර්ණි ගල් ගුහාව", "ඉසිපතනාරාමය"], correct: 3 },
+        { q: "ප්‍රථම සංගායනාවට සහභාගි වූයේ කී දෙනෙකුද?", options: ["250", "300", "1000", "700", "රහතන් වහන්සේලා 500කි"], correct: 4 },
+        { q: "ප්‍රථම සංගායනාව පැවැත්වීමට හේතු ලෙස පාඨයේ දැක්වෙන්නේ කෙසේද?", options: ["දුරස්ත හා ආසන්න හේතු දෙපරිදිය", "දේශපාලන හේතු පමණි", "ආර්ථික හේතු පමණි", "ආගමික හේතු පමණි", "සමාජ හේතු පමණි"], correct: 0 },
+        { q: "ප්‍රථම සංගායනාව පැවැත්වීමට ගත වූ කාලය කීයද?", options: ["මාස තුනකි", "මාස හතකි", "මාස නවයකි", "වසරක්", "දින හතළිහක්"], correct: 1 },
+        { q: "දුරස්ත හේතුවක් ලෙස සඳහන් කර ඇති විෂමාචාර භික්ෂූන් අතර නොසිටින්නේ කවුද?", options: ["දේවදත්ත", "සාති", "අරිට්ඨ", "අනුරුද්ධ", "සුනක්ඛත්ත"], correct: 3 },
+        { q: "කීටාගිරියේ විෂමාචාර භික්ෂූන් පිළිබඳ නිදසුන සඳහන් වන්නේ කුමන ග්‍රන්ථයේද?", options: ["දීඝ නිකාය", "මජ්ඣිම නිකාය", "සංයුත්ත නිකාය", "අංගුත්තර නිකාය", "චුල්ලවග්ග පාළිය"], correct: 4 },
+        { q: "අස්සජි හා පුනබ්බසුත භික්ෂූන් ප්‍රසිද්ධියේ පාපී භික්ෂූන් ලෙස ප්‍රකාශ කළේ කවුද?", options: ["මහාකාශ්‍යප හා ආනන්ද හිමි", "සැරියුත් හා මුගලන් හිමි", "උපාලි හා අනුරුද්ධ හිමි", "රාහුල හා ආනන්ද හිමි", "පුරාණ හා ගවම්පති හිමි"], correct: 1 },
+        { q: "මහාප්‍රඥාවන්ත ශිෂ්‍ය පිරිසක් ලෙස පාඨයේ සඳහන් වන්නේ කාගේ ශිෂ්‍ය පිරිසද?", options: ["මුගලන් හිමිගේ", "මහාකාශ්‍යප හිමිගේ", "සැරියුත් හිමිගේ", "ආනන්ද හිමිගේ", "රාහුල හිමිගේ"], correct: 2 }
+    ],
+    2: [
+        { q: "ඉද්ධිමත් ශිෂ්‍ය පිරිසක් ලෙස පාඨයේ සඳහන් වන්නේ කාගේ ශිෂ්‍ය පිරිසද?", options: ["සැරියුත් හිමිගේ", "මුගලන් හිමිගේ", "මහාකාශ්‍යප හිමිගේ", "ආනන්ද හිමිගේ", "රාහුල හිමිගේ"], correct: 1 },
+        { q: "දුතංගධාරීන් ලෙස ප්‍රසිද්ධ ශිෂ්‍ය පිරිසක් සිටියේ කාගේද?", options: ["ආනන්ද හිමිගේ", "අනුරුද්ධ හිමිගේ", "මහාකාශ්‍යප හිමිගේ", "සැරියුත් හිමිගේ", "උපාලි හිමිගේ"], correct: 2 },
+        { q: "සාමණේරයන් වහන්සේලා සමඟ විශේෂ සම්බන්ධතාවයක් පැවැත්වූයේ කවුද?", options: ["මහාකාශ්‍යප හිමි", "සැරියුත් හිමි", "මුගලන් හිමි", "රාහුල හිමි", "උපාලි හිමි"], correct: 3 },
+        { q: "භික්ෂුණීන් වහන්සේලාට හිතවත්ව ගරු තැන්හි තබා කටයුතු කළේ කවුද?", options: ["සැරියුත් හිමි", "මහාකාශ්‍යප හිමි", "මුගලන් හිමි", "රාහුල හිමි", "ආනන්ද හිමි"], correct: 4 },
+        { q: "ස්වේතාම්බර හා දිගම්බර ලෙස බෙදී තිබූ ශාසනය අයත් වූයේ කාටද?", options: ["නිගණ්ඨනාථපුත්ත", "අජිත කේසකම්බලී", "පූරණ කස්සප", "මක්ඛලි ගෝසාල", "සඤ්ජය බෙලට්ඨිපුත්ත"], correct: 0 },
+        { q: "බුදුන් වහන්සේ පිරිනිවීමෙන් පසු ගුරු තැන්හි තබාගත යුතු බව අවවාද කළේ කුමක්ද?", options: ["සංඝයා පමණක්", "බෝධිය පමණක්", "චෛත්‍ය පමණක්", "ධර්මය හා විනය", "දාන පමණක්"], correct: 3 },
+        { q: "සංඝ සාමග්‍රිය දෙදරා ගිය අවස්ථාවක් ලෙස සඳහන් වන්නේ කුමක්ද?", options: ["රාජගහ සංගායනාව", "කොසඹෑනුවර ධර්මධර හා විනයධර බෙදීම", "අලුවිහාර සංගායනාව", "ධාතු බෙදීම", "බෝධි රෝපණය"], correct: 1 },
+        { q: "සංඝයාගේ පාලනය තමන් වෙත පවරා දෙන ලෙස ඉල්ලා සිටියේ කවුද?", options: ["සැරියුත් හිමි", "ආනන්ද හිමි", "උපාලි හිමි", "අනුරුද්ධ හිමි", "දේවදත්ත තෙරුන්"], correct: 4 },
+        { q: "ප්‍රථම සංගායනාවට ආසන්නම හේතුව ලෙස පාඨයේ දැක්වෙන්නේ කුමක්ද?", options: ["සුභද්‍ර භික්ෂුවගේ අභද්‍ර වචනය", "දේවදත්තගේ ක්‍රියා", "කෝසඹෑ බෙදීම", "නිගණ්ඨ ශාසනය බෙදීම", "භික්ෂුණී ශාසනය පිහිටුවීම"], correct: 0 },
+        { q: "සුභද්‍ර භික්ෂුව පිළිබඳ පාඨයේ සඳහන් නිවැරදි ප්‍රකාශය කුමක්ද?", options: ["කුඩා කල පැවිදි වූවෙකි.", "බුදුන් වහන්සේගේ පළමු ශ්‍රාවකයාය.", "උපාලි හිමියන්ගේ ශිෂ්‍යයෙකි.", "මහලු වියේ පැවිදි වූවෙකි.", "සංගායනාවේ ලේඛකයා විය."], correct: 3 }
+    ],
+    3: [
+        { q: "සුභද්‍ර භික්ෂුව බුදුන් වහන්සේ සමඟ වෛර බැඳගත්තේ කුමන හේතුව නිසාද?", options: ["දේවදත්තගේ බලපෑම නිසා", "පූජා කිරීමට ගිය පදානය ප්‍රතික්ෂේප කළ නිසා", "සංඝයෙන් නෙරපා හැරීම නිසා", "විනය දඬුවමක් ලැබීම නිසා", "බණ දේශනාවක් අසා අමනාප වූ නිසා"], correct: 1 },
+        { q: "සුභද්‍ර භික්ෂුව කාගේ ශිෂ්‍යයෙකු ලෙස පාඨයේ සඳහන් වේද?", options: ["ආනන්ද හිමිගේ", "උපාලි හිමිගේ", "සැරියුත් හිමිගේ", "මහාකාශ්‍යප මහරහතන් වහන්සේගේ", "අනුරුද්ධ හිමිගේ"], correct: 3 },
+        { q: "\"අලං ආවුසො මා සොචිත්ථ...\" යන ප්‍රකාශය කළේ කවුද?", options: ["දේවදත්ත", "ආනන්ද හිමි", "සුභද්‍ර භික්ෂුව", "උපාලි හිමි", "පුරාණ හිමි"], correct: 2 },
+        { q: "සෙසු භික්ෂූන්ටද සුභද්‍රගේ අදහස වැනි සිතුවිලි පහළ විය හැකි බව සඳහන් කරන්නේ කුමන ග්‍රන්ථයද?", options: ["පූජාවලිය", "මහාවංශය", "චුල්ලවග්ග පාළිය", "සාරත්ථදීපනී විනය ටීකාව", "දීපවංශය"], correct: 3 },
+        { q: "විසිරී පැවති ධර්ම විනය පිළිවෙළකට එක්රැස් කර තැබීමට අවශ්‍ය බව සඳහන් කරන ග්‍රන්ථය කුමක්ද?", options: ["පූජාවලිය", "දීපවංශය", "මහාවංශය", "බෝධිවංශය", "මහාවස්තුව"], correct: 0 },
+        { q: "\"හන්දමයං ආවුසො ධම්මං ච විනයං ච සංගායාම...\" යන පාඨය අයත් වන්නේ කුමන ග්‍රන්ථයටද?", options: ["දීඝ නිකාය", "චුල්ලවග්ග පාළිය", "පූජාවලිය", "සමන්තපාසාදිකාව", "දීපවංශය"], correct: 1 },
+        { q: "පහත සඳහන් කුමන ග්‍රන්ථය සුභද්‍රගේ අභද්‍ර වචනය ආසන්න හේතුව ලෙස නොපිළිගනීද?", options: ["මහාවංශය", "බෝධිවංශය", "අශෝකාවදානය", "සමන්තපාසාදිකාව", "සාරත්ථදීපනිය"], correct: 2 },
+        { q: "බුදුන් වහන්සේ පිරිනිවීමෙන් පසු භික්ෂූන් මුදල් එකතු කළ බව සඳහන් කරන්නේ කාගේ භ්‍රමණ වාර්තාවද?", options: ["පහියන් හිමිගේ", "ඉට්සිංගේ", "හියුංසාංගේ", "යුං සියැංගේ", "මේගස්තනීස්ගේ"], correct: 3 },
+        { q: "බුදුන් වහන්සේ පිරිනිවීමත් සමඟ රහතන් වහන්සේලා පන්සියයක් පිරිනිවන් පෑ බව සඳහන් කරන්නේ කුමන මූලාශ්‍රයද?", options: ["පූජාවලිය", "මහාවංශය", "දීපවංශය", "සමන්තපාසාදිකාව", "මහාවස්තුව"], correct: 4 },
+        { q: "ප්‍රථම සංගායනාව පිළිබඳ ප්‍රධාන මූලාශ්‍රය ලෙස සැලකෙන්නේ කුමක්ද?", options: ["විනය පිටකයේ චුල්ලවග්ග පාළියේ පඤ්චසතිකක්ඛන්ධකය", "දීපවංශය", "මහාවංශය", "බෝධිවංශය", "පූජාවලිය"], correct: 0 }
+    ],
+    4: [
+        { q: "ප්‍රථම සංගායනාවේදී විනය විසර්ජනය සිදු කළේ කවුද?", options: ["ආනන්ද හිමි", "උපාලි මහරහතන් වහන්සේ", "මහාකාශ්‍යප හිමි", "අනුරුද්ධ හිමි", "පුරාණ හිමි"], correct: 1 },
+        { q: "විනය විසර්ජනය ආරම්භ කළේ කුමන ශික්ෂාපදයෙන්ද?", options: ["සංඝාදිසේසයෙන්", "පාචිත්තියෙන්", "දුක්කටයෙන්", "පළමු පාරාජිකාවෙන්", "නිස්සග්ගිය පාචිත්තියෙන්"], correct: 3 },
+        { q: "විනයධරයන් අතර අග්‍රස්ථානයට බුදුන් වහන්සේ විසින් පත් කළේ කවුද?", options: ["ආනන්ද හිමි", "සැරියුත් හිමි", "උපාලි හිමි", "මහාකාශ්‍යප හිමි", "මුගලන් හිමි"], correct: 2 },
+        { q: "විනය විසර්ජනයේදී ශික්ෂාපදයක් පිළිබඳ විමසූ පළමු කරුණ කුමක්ද?", options: ["අනුපඤ්ඤප්තිය", "ආපත්තිය", "වත්ථුව (එය පනවන ලද අවස්ථාව)", "අනාපත්තිය", "පුද්ගලයා"], correct: 2 },
+        { q: "විනය විසර්ජනයේදී \"නිදානං\" යන්නෙන් අදහස් කරන්නේ කුමක්ද?", options: ["ශික්ෂාපදය", "පනවන ලද පුද්ගලයා", "ආපත්තිය", "එයට අදාළ නිදානය", "අනාපත්තිය"], correct: 3 },
+        { q: "ධර්ම විසර්ජනය සිදු කළේ කවුද?", options: ["ආනන්ද මහරහතන් වහන්සේ", "උපාලි හිමි", "අනුරුද්ධ හිමි", "මහාකාශ්‍යප හිමි", "පුරාණ හිමි"], correct: 0 },
+        { q: "බහුශ්‍රුත භික්ෂූන් අතර අග්‍රස්ථානයට පත් කළේ කවුද?", options: ["උපාලි හිමි", "සැරියුත් හිමි", "මුගලන් හිමි", "ආනන්ද හිමි", "අනුරුද්ධ හිමි"], correct: 3 },
+        { q: "ධර්ම විසර්ජනය ආරම්භ කළේ කුමන සූත්‍රයෙන්ද?", options: ["ධම්මචක්කප්පවත්තන සූත්‍රය", "සතිපට්ඨාන සූත්‍රය", "බ්‍රහ්මජාල සූත්‍රය", "මහාපරිනිබ්බාන සූත්‍රය", "සිඟාලෝවාද සූත්‍රය"], correct: 2 },
+        { q: "ප්‍රශ්න-විසර්ජන ක්‍රමයෙන් විසර්ජනය කරන ලද්දේ කුමක්ද?", options: ["විනය පිටකය පමණි", "අභිධර්ම පිටකය", "පඤ්ච නිකාය", "ජාතක පොත", "බෝධිවංශය"], correct: 2 },
+        { q: "ප්‍රථම සංගීතියෙන් පසු මතුවූ ගැටලුවක් ලෙස සඳහන් වන්නේ කුමක්ද?", options: ["විනය පිටකය අහිමි වීම", "බුද්දානුබුද්ධක ශික්ෂාපද පිළිබඳ ඒකමතිකත්වයක් නොවීම", "සංඝයා විසිර යාම", "ත්‍රිපිටකය ලිවීම", "භික්ෂුණී ශාසනය අහෝසි කිරීම"], correct: 1 }
+    ],
+    5: [
+        { q: "ප්‍රථම සංගීතියෙන් පසු බ්‍රහ්මදණ්ඩනය පැනවූයේ කාටද?", options: ["ආනන්ද හිමිට", "පුරාණ හිමිට", "ඡන්න භික්ෂුවට", "ගවම්පති හිමිට", "සුභද්‍ර භික්ෂුවට"], correct: 2 },
+        { q: "ආනන්ද හිමියන්ට නැගූ චෝදනාවක් නොවන්නේ කුමක්ද?", options: ["බුද්දානුබුද්ධක ශික්ෂාපද කවරේදැයි නොවිමසීම", "වැසි සළුව පයින් පාගෙන මැසීම", "මාගමුන් ලවා බුදුන් වහන්සේට වැඳවීම", "විනය විසර්ජනය සිදු කිරීම", "කාන්තා පැවිද්දට මූලික වීම"], correct: 3 },
+        { q: "සංගීතියට සහභාගි වීම ප්‍රතික්ෂේප කළ තෙරුන් වහන්සේ කවුද?", options: ["උපාලි හිමි", "ආනන්ද හිමි", "අනුරුද්ධ හිමි", "පුරාණ හිමි", "මුගලන් හිමි"], correct: 3 },
+        { q: "සංගීතිය පිළිබඳ විමසූ විට කිසිවක් නොකියා නිශ්ශබ්ද වූයේ කවුද?", options: ["සුභද්‍ර භික්ෂුව", "ගවම්පති හිමි", "උපාලි හිමි", "ආනන්ද හිමි", "සැරියුත් හිමි"], correct: 1 },
+        { q: "ප්‍රථම සංගීතියේ ප්‍රධාන ප්‍රතිඵලයක් වූයේ කුමක්ද?", options: ["විසිරී පැවති ධර්ම විනය ඒකරාශි කොට සුරක්ෂිත කිරීම", "අභිධර්ම පිටකය ලිවීම", "නව විනය ශික්ෂාපද පැනවීම", "නව නිකාය පිහිටුවීම", "භික්ෂුණී ශාසනය අහෝසි කිරීම"], correct: 0 },
+        { q: "සමස්ත බුද්ධ වචනය සංග්‍රහ කරන ලද්දේ කුමන කොටස් දෙකක් ලෙසද?", options: ["දීඝ හා මජ්ඣිම නිකාය", "සුත්‍ර හා විනය", "විනය හා අභිධර්ම", "සූත්‍ර හා අභිධර්ම", "නිකාය හා වංශකථා"], correct: 1 },
+        { q: "දීඝ නිකාය භාණක පිරිස භාරව සිටියේ කවුද?", options: ["උපාලි හිමි", "මහාකාශ්‍යප හිමි", "අනුරුද්ධ හිමි", "ආනන්ද හිමි ඇතුළු ශිෂ්‍යානු ශිෂ්‍ය පිරිස", "පුරාණ හිමි"], correct: 3 },
+        { q: "සංයුත්ත නිකාය භාණක පිරිස භාරව සිටියේ කවුද?", options: ["සැරියුත් හිමි", "කාශ්‍යප හිමි ඇතුළු ශිෂ්‍යානු ශිෂ්‍ය පිරිස", "අනුරුද්ධ හිමි", "ආනන්ද හිමි", "උපාලි හිමි"], correct: 1 },
+        { q: "අංගුත්තර නිකාය භාරව පත් කළේ කාගේ ශිෂ්‍යානු ශිෂ්‍ය පිරිසද?", options: ["මහාකාශ්‍යප හිමිගේ", "ආනන්ද හිමිගේ", "අනුරුද්ධ හිමිගේ", "උපාලි හිමිගේ", "සැරියුත් හිමිගේ"], correct: 2 },
+        { q: "ප්‍රථම සංගීතිය සත්‍ය සිද්ධියක් නොවන බවට මත පළ කළ විද්වතා කවුද?", options: ["රිස් ඩේවිඩ්ස්", "ඒ. ජේ. තෝමස්", "ඕල්ඩන් බර්ග්", "පහියන් හිමි", "යුං සියැං"], correct: 2 }
+    ]
+};
+
+const letters = ['i', 'ii', 'iii', 'iv', 'v'];
+let currentUser = null;
+let scores = { total: 0, correct: 0, byRound: {} };
+let answeredQuestions = {};
+let unlockedRounds = [1];
+let currentRound = 1;
+
+function init() {
+    loadLeaderboard();
+    updateOnlineCount();
+    setInterval(updateOnlineCount, 5000);
+}
+
+function updateOnlineCount() {
+    const base = 8;
+    const random = Math.floor(Math.random() * 15);
+    document.getElementById('onlineCount').textContent = 'Online: ' + (base + random);
+}
+
+function startQuiz() {
+    const name = document.getElementById('userName').value.trim();
+    const phone = document.getElementById('userPhone').value.trim();
+    if (!name) { alert('කරුණාකර ඔබගේ සම්පූර්ණ නම ඇතුළත් කරන්න.'); return; }
+    if (!phone || phone.length < 9) { alert('කරුණාකර වලංගු දුරකථන අංකයක් ඇතුළත් කරන්න.'); return; }
+    currentUser = { name, phone, id: Date.now() };
+    let participants = JSON.parse(localStorage.getItem('slbu_participants') || '[]');
+    const existing = participants.find(p => p.phone === phone);
+    if (!existing) {
+        participants.push({ name, phone, score: 0, round: 1, date: new Date().toISOString() });
+        localStorage.setItem('slbu_participants', JSON.stringify(participants));
+    }
+    document.getElementById('landingPage').classList.add('hidden');
+    document.getElementById('scoreBar').style.display = 'flex';
+    document.getElementById('quizContainer').classList.remove('hidden');
+    renderRoundsNav();
+    loadRound(1);
+    updateScoreDisplay();
+    renderLeaderboard();
+}
+
+function renderRoundsNav() {
+    const nav = document.getElementById('roundsNav');
+    nav.innerHTML = '';
+    for (let i = 1; i <= 5; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'round-btn';
+        btn.textContent = 'වට ' + i;
+        if (unlockedRounds.includes(i)) {
+            if (i === currentRound) btn.classList.add('active');
+            btn.onclick = () => loadRound(i);
+            const correctInRound = getCorrectCountInRound(i);
+            if (correctInRound === 10) {
+                const status = document.createElement('span');
+                status.className = 'round-status';
+                status.innerHTML = '<i class="fas fa-check"></i>';
+                btn.appendChild(status);
+            }
+        } else {
+            btn.classList.add('locked');
+            btn.innerHTML = '<i class="fas fa-lock"></i> වට ' + i;
+        }
+        nav.appendChild(btn);
+    }
+}
+
+function getCorrectCountInRound(round) {
+    let count = 0;
+    const roundQuestions = questionsData[round];
+    for (let i = 0; i < roundQuestions.length; i++) {
+        const key = round + '-' + i;
+        if (answeredQuestions[key] && answeredQuestions[key].correct) count++;
+    }
+    return count;
+}
+
+function loadRound(round) {
+    if (!unlockedRounds.includes(round)) return;
+    currentRound = round;
+    document.getElementById('currentRoundDisplay').textContent = round;
+    renderRoundsNav();
+    renderQuestions(round);
+    checkRoundCompletion();
+}
+
+function renderQuestions(round) {
+    const area = document.getElementById('questionsArea');
+    area.innerHTML = '';
+    const questions = questionsData[round];
+    const startNum = (round - 1) * 10 + 1;
+    questions.forEach((q, idx) => {
+        const globalIdx = startNum + idx;
+        const key = round + '-' + idx;
+        const isAnswered = answeredQuestions[key];
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.style.animationDelay = (idx * 0.1) + 's';
+        let optionsHtml = '';
+        q.options.forEach((opt, optIdx) => {
+            let optClass = 'option';
+            let disabled = '';
+            if (isAnswered) {
+                disabled = 'disabled';
+                optClass += ' answered';
+                if (optIdx === q.correct) optClass += ' correct';
+                else if (optIdx === isAnswered.selected && !isAnswered.correct) optClass += ' wrong';
+            }
+            optionsHtml += '<div class="' + optClass + '" onclick="selectAnswer(' + round + ',' + idx + ',' + optIdx + ')" ' + disabled + '>' +
+                '<div class="option-letter">' + letters[optIdx] + '</div>' +
+                '<div class="option-text">' + opt + '</div></div>';
+        });
+        let feedbackHtml = '';
+        if (isAnswered) {
+            if (isAnswered.correct) {
+                feedbackHtml = '<div class="feedback success show"><i class="fas fa-check-circle"></i> Congratulations! නිවැරදි පිළිතුරකි!</div>';
+            } else {
+                feedbackHtml = '<div class="feedback error show"><i class="fas fa-times-circle"></i> වැරදි පිළිතුරකි. නිවැරදි පිළිතුර: ' + letters[q.correct] + '</div>';
+            }
+        }
+        card.innerHTML = '<div class="question-header"><div class="question-number">' + globalIdx + '</div><div class="question-text">' + q.q + '</div></div>' +
+            '<div class="options">' + optionsHtml + '</div>' + feedbackHtml;
+        area.appendChild(card);
+    });
+}
+
+function selectAnswer(round, qIdx, optIdx) {
+    const key = round + '-' + qIdx;
+    if (answeredQuestions[key]) return;
+    const q = questionsData[round][qIdx];
+    const correct = optIdx === q.correct;
+    answeredQuestions[key] = { selected: optIdx, correct: correct };
+    if (correct) {
+        scores.total += 2;
+        scores.correct += 1;
+        if (!scores.byRound[round]) scores.byRound[round] = 0;
+        scores.byRound[round] += 2;
+        triggerConfetti();
+    }
+    updateScoreDisplay();
+    renderQuestions(round);
+    checkRoundCompletion();
+    saveProgress();
+    renderLeaderboard();
+}
+
+function checkRoundCompletion() {
+    const correctInRound = getCorrectCountInRound(currentRound);
+    const area = document.getElementById('questionsArea');
+    const existingLock = area.querySelector('.round-completion');
+    if (existingLock) existingLock.remove();
+    if (correctInRound >= 7 && currentRound < 5 && !unlockedRounds.includes(currentRound + 1)) {
+        unlockedRounds.push(currentRound + 1);
+        renderRoundsNav();
+        const msg = document.createElement('div');
+        msg.className = 'completion-message round-completion';
+        msg.innerHTML = '<i class="fas fa-trophy"></i><h2>සුභ පැතුම්!</h2><p>ඔබ වට ' + currentRound + ' සම්පූර්ණ කළ අතර වට ' + (currentRound + 1) + ' අන්ලොක් වී ඇත!</p>';
+        area.appendChild(msg);
+        triggerConfetti();
+    } else if (getCorrectCountInRound(5) === 10 && currentRound === 5) {
+        const msg = document.createElement('div');
+        msg.className = 'completion-message round-completion';
+        msg.innerHTML = '<i class="fas fa-crown"></i><h2>සම්පූර්ණයි!</h2><p>ඔබ සියලුම වට සම්පූර්ණ කළේය!</p><div class="final-score">' + scores.total + ' / 100</div>';
+        area.appendChild(msg);
+        triggerConfetti();
+    }
+}
+
+function updateScoreDisplay() {
+    document.getElementById('totalScore').textContent = scores.total + ' / 100';
+    document.getElementById('correctCount').textContent = scores.correct;
+}
+
+function saveProgress() {
+    if (!currentUser) return;
+    let participants = JSON.parse(localStorage.getItem('slbu_participants') || '[]');
+    const p = participants.find(x => x.phone === currentUser.phone);
+    if (p) {
+        p.score = scores.total;
+        p.round = Math.max(...unlockedRounds);
+        p.date = new Date().toISOString();
+        localStorage.setItem('slbu_participants', JSON.stringify(participants));
+    }
+}
+
+function loadLeaderboard() {
+    renderLeaderboard();
+}
+
+function renderLeaderboard() {
+    let participants = JSON.parse(localStorage.getItem('slbu_participants') || '[]');
+    participants.sort((a, b) => b.score - a.score);
+    const tbody = document.getElementById('leaderboardBody');
+    tbody.innerHTML = '';
+    participants.slice(0, 20).forEach((p, i) => {
+        const tr = document.createElement('tr');
+        let rankClass = '';
+        if (i === 0) rankClass = 'rank-1';
+        else if (i === 1) rankClass = 'rank-2';
+        else if (i === 2) rankClass = 'rank-3';
+        tr.innerHTML = '<td class="rank ' + rankClass + '">' + (i + 1) + '</td><td>' + p.name + '</td><td>' + p.phone + '</td><td><strong>' + p.score + '</strong></td><td>වට ' + p.round + '</td>';
+        tbody.appendChild(tr);
+    });
+}
+
+// ==================== CONFETTI ====================
+function triggerConfetti() {
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const particles = [];
+    const colors = ['#D4AF37', '#8B0000', '#28A745', '#FF6B35', '#FFD700', '#C0C0C0'];
+    for (let i = 0; i < 100; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            vx: Math.random() * 4 - 2,
+            vy: Math.random() * 4 + 2,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            size: Math.random() * 8 + 4,
+            rotation: Math.random() * 360,
+            rotationSpeed: Math.random() * 10 - 5
+        });
+    }
+    let animationId;
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let active = false;
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.rotation += p.rotationSpeed;
+            if (p.y < canvas.height) active = true;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rotation * Math.PI / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+            ctx.restore();
+        });
+        if (active) animationId = requestAnimationFrame(animate);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    animate();
+    setTimeout(() => cancelAnimationFrame(animationId), 3000);
+}
+
+window.addEventListener('resize', () => {
+    const canvas = document.getElementById('confetti-canvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+init();
+</script>
+</body>
+</html>
